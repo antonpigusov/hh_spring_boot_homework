@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link th:href="@{/table.css}" rel="stylesheet" />
+</head>
+<body>
+    <h1>Task manager v1.0</h1>
+    <h2>Tasks list</h2>
+    <table class="fixed_header">
+        <tr>
+            <th>Task</th>
+            <th>Creation date</th>
+            <th>Deadline</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="task:${tasks}">
+            <td th:text="${task.taskName}"/>
+            <td th:text="${task.creationDate}"/>
+            <td th:text="${task.deadline}"/>
+            <td th:text="${task.status}"/>
+            <td th:hidden="${task.id}"/>
+            <td>
+                <form action="/home" th:method="delete">
+                    <input type="hidden" name="id" th:value="${task.id}"/>
+                    <button type="submit">delete</button>
+                </form>
+                <form action="/edit" method="get">
+                    <input type="hidden" name="id" th:value="${task.id}"/>
+                    <button type="submit">edit</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <h2>Add task</h2>
+    <form action="/home" method="post">
+        Task: <input type="text" size="50" name="taskName"/><br/>
+        Deadline: <input type="date" name="deadline"/><br/>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>
