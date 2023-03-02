@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+</head>
+<body>
+    <h1>Edit task</h1>
+    <form action="/edit" th:method="patch"  th:object="${task}">
+        Task: <input type="text" size="50" th:field="*{taskName}"/><br/>
+        Previous deadline: <input type="date" th:value="*{deadline}"/><br/>
+        New deadline: <input type="date" th:field="*{deadline}"/><br/>
+        Status: <select th:field="*{status}">
+            <option value="Created">Created</option>
+            <option value="Started">Started</option>
+            <option value="Stopped">Stopped</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Finished">Finished</option>
+        </select><br/>
+        <input type="hidden" th:field="*{creationDate}"/>
+        <input type="hidden" th:field="*{id}"/>
+        <button type="submit">save</button>
+    </form>
+</body>
+</html>

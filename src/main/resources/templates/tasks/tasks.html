@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
+    <title>Tasks page</title>
     <link th:href="@{/table.css}" rel="stylesheet" />
 </head>
 <body>
@@ -22,7 +22,7 @@
             <td th:text="${task.status}"/>
             <td th:hidden="${task.id}"/>
             <td>
-                <form action="/home" th:method="delete">
+                <form action="/tasks" th:method="delete">
                     <input type="hidden" name="id" th:value="${task.id}"/>
                     <button type="submit">delete</button>
                 </form>
@@ -34,7 +34,7 @@
         </tr>
     </table>
     <h2>Add task</h2>
-    <form action="/home" method="post">
+    <form action="/tasks" method="post">
         Task: <input type="text" size="50" name="taskName"/><br/>
         Deadline: <input type="date" name="deadline"/><br/>
         <button type="submit">Add</button>
