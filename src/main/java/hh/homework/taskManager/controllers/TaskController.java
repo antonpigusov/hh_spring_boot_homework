@@ -48,13 +48,12 @@ public class TaskController {
     }
     @GetMapping("/edit")
     public String editTask(Model model, @RequestParam Integer id){
-        Optional<Task> taskToBeFoundOpt = taskRepository.findById(id);
-        if (!taskToBeFoundOpt.isPresent()) {
-            return "tasks/error";
-        }
-        Task taskToBeFound = taskToBeFoundOpt.get();
-        model.addAttribute("task", taskToBeFound);
-        return "tasks/edit";
+        return taskRepository.findById(id)
+                .map(task -> {
+                    model.addAttribute("task", task);
+                    return "tasks/edit";
+                })
+                .orElse("tasks/error");
     }
     @PatchMapping("/edit")
     public String updateTask(@ModelAttribute("task") Task task, Model model){
