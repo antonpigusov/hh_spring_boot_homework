@@ -38,31 +38,33 @@ public class TaskController {
     }
     @DeleteMapping("/tasks")
     public String deleteTask(Model model, @RequestParam("id") Integer id){
-        if(taskRepository.existsById(id))
-            taskRepository.deleteById(id);
+        if(!taskRepository.existsById(id)){
+            return "tasks/error";
+        }
+        taskRepository.deleteById(id);
         var tasks = taskRepository.findAll();
         model.addAttribute("tasks", tasks);
         return "tasks/tasks";
     }
     @GetMapping("/edit")
     public String editTask(Model model, @RequestParam Integer id){
-        if (taskRepository.existsById(id)) {
-            Optional<Task> taskToBeFoundOpt = taskRepository.findById(id);
-            Task taskToBeFound = taskToBeFoundOpt.get();
-            model.addAttribute("task", taskToBeFound);
-            return "tasks/edit";
-        } else
+        Optional<Task> taskToBeFoundOpt = taskRepository.findById(id);
+        if (!taskToBeFoundOpt.isPresent()) {
             return "tasks/error";
+        }
+        Task taskToBeFound = taskToBeFoundOpt.get();
+        model.addAttribute("task", taskToBeFound);
+        return "tasks/edit";
     }
     @PatchMapping("/edit")
     public String updateTask(@ModelAttribute("task") Task task, Model model){
-        if(taskRepository.existsById(task.getId())) {
-            taskRepository.save(task);
-            var tasks = taskRepository.findAll();
-            //tasks.sort(Comparator.comparing(Task::getTaskName));
-            model.addAttribute("tasks", tasks);
-            return "redirect:tasks";
-        } else
+        if(!taskRepository.existsById(task.getId())) {
             return "tasks/error";
+        }
+        taskRepository.save(task);
+        var tasks = taskRepository.findAll();
+        //tasks.sort(Comparator.comparing(Task::getTaskName));
+        model.addAttribute("tasks", tasks);
+        return "redirect:tasks";
     }
 }
