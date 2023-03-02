@@ -10,7 +10,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -37,6 +36,6 @@ public class Task {
         this.taskName = taskName;
         this.creationDate = LocalDate.now();
         this.deadline = deadline;
-        this.status = TaskStatus.Created;
+        this.status = TaskStatus.CREATED;
     }
 }

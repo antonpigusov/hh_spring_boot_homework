@@ -37,8 +37,7 @@ public class TaskController {
         return "tasks/tasks";
     }
     @DeleteMapping("/tasks")
-    public String deleteTask(Model model, @RequestParam("id") String stringId){
-        Integer id = Integer.parseInt(stringId);
+    public String deleteTask(Model model, @RequestParam("id") Integer id){
         if(taskRepository.existsById(id))
             taskRepository.deleteById(id);
         var tasks = taskRepository.findAll();
@@ -46,8 +45,7 @@ public class TaskController {
         return "tasks/tasks";
     }
     @GetMapping("/edit")
-    public String editTask(Model model, @RequestParam(name = "id") String stringId){
-        Integer id = Integer.parseInt(stringId);
+    public String editTask(Model model, @RequestParam Integer id){
         if (taskRepository.existsById(id)) {
             Optional<Task> taskToBeFoundOpt = taskRepository.findById(id);
             Task taskToBeFound = taskToBeFoundOpt.get();

@@ -11,11 +11,11 @@
         Previous deadline: <input type="date" th:value="*{deadline}"/><br/>
         New deadline: <input type="date" th:field="*{deadline}"/><br/>
         Status: <select th:field="*{status}">
-            <option value="Created">Created</option>
-            <option value="Started">Started</option>
-            <option value="Stopped">Stopped</option>
-            <option value="Cancelled">Cancelled</option>
-            <option value="Finished">Finished</option>
+            <option value="CREATED">Created</option>
+            <option value="STARTED">Started</option>
+            <option value="STOPPED">Stopped</option>
+            <option value="CANCELLED">Cancelled</option>
+            <option value="FINISHED">Finished</option>
         </select><br/>
         <input type="hidden" th:field="*{creationDate}"/>
         <input type="hidden" th:field="*{id}"/>
